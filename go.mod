@@ -2,9 +2,13 @@ module todoapp
 
 go 1.20
 
-require github.com/labstack/echo/v4 v4.9.0
-
-require github.com/stretchr/testify v1.8.1 // indirect
+require (
+	github.com/labstack/echo/v4 v4.9.0
+	github.com/go-sql-driver/mysql v1.7.0
+	github.com/volatiletech/sqlboiler v3.7.1+incompatible
+	github.com/volatiletech/null v8.0.0+incompatible
+	github.com/golang-migrate/migrate/v4 v4.16.2
+)
 
 // 依存関係の明示的な指定
 require (

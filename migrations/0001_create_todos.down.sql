@@ -1,1 +1,5 @@
-DROP TABLE IF EXISTS todos;
+-- テーブルの削除(作成の逆順)
+DROP TABLE IF EXISTS likes;
+DROP TABLE IF EXISTS follows;
+DROP TABLE IF EXISTS tweets;
+DROP TABLE IF EXISTS users;
