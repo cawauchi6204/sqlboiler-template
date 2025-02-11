@@ -18,4 +18,4 @@ services:
       MYSQL_ROOT_PASSWORD: example
       MYSQL_DATABASE: todoapp
     ports:
-      - "3306:3306"
+      - "3307:3306"
