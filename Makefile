@@ -1,4 +1,4 @@
-.PHONY: run build test clean docker-up docker-down docker-build docker-reset db-up db-down db-reset migrate generate-models install help
+.PHONY: run build test clean docker-up docker-down docker-build docker-reset db-up db-down db-reset migrate generate-models seed install help
 
 # デフォルトのターゲット
 .DEFAULT_GOAL := help
@@ -6,6 +6,13 @@
 # 変数定義
 BINARY_NAME=twitter-clone
 GO_FILES=$(shell find . -name "*.go" -not -path "./vendor/*")
+
+# データベース接続情報
+DB_HOST=localhost
+DB_PORT=3307
+DB_USER=root
+DB_PASSWORD=example
+DB_NAME=todoapp
 
 # ヘルプメッセージ
 help:
@@ -23,6 +30,7 @@ help:
 	@echo "  make db-reset         - データベースをリセット(停止→削除→起動)"
 	@echo "  make migrate          - データベースマイグレーションを実行"
 	@echo "  make generate-models  - SQLBoilerでモデルを生成"
+	@echo "  make seed             - テストデータを生成"
 	@echo "  make install          - 依存関係をインストール"
 
 # アプリケーションの実行(ローカル)
@@ -91,6 +99,10 @@ migrate:
 generate-models:
 	sqlboiler mysql
 
+# シードデータの生成
+seed:
+	DB_HOST=$(DB_HOST) DB_PORT=$(DB_PORT) DB_USER=$(DB_USER) DB_PASSWORD=$(DB_PASSWORD) DB_NAME=$(DB_NAME) go run cmd/seed/main.go
+
 # 依存関係のインストール
 install:
 	go install github.com/volatiletech/sqlboiler/v4@latest
@@ -103,6 +115,9 @@ dev: docker-up migrate generate-models
 
 # データベースの再構築とアプリケーションの起動
 reset: docker-reset generate-models
+
+# 開発環境の完全セットアップ(データ含む)
+setup: docker-reset generate-models seed
 
 # テスト環境のセットアップと実行
 test-all: docker-up migrate generate-models test
