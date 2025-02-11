@@ -1,5 +1,5 @@
-pkgname="models"
-output="internal/models"
+pkgname="schema"
+output="internal/schema"
 wipe=true
 no-tests=true
 add-global-variants=false
@@ -12,4 +12,4 @@ port=3307
 user="root"
 pass="example"
 sslmode="false"
-whitelist=["users", "tweets", "follows", "likes", "todos"]
+whitelist=["users", "tweets", "follows", "likes"]
